@@ -47,11 +47,6 @@ public class VTubeStudioBlendshapeDataReceiver : MonoBehaviour
     private const string TAG = "[VTS Blendshapes]";
 
     /// <summary>
-    /// If true, the received data will be printed.
-    /// </summary>
-    private const bool printDebugBlendshapes = false;
-
-    /// <summary>
     /// The listen port for the UDP server.
     /// </summary>
     private const int vTubeStudioListenPortUDP = 21412;
@@ -157,11 +152,6 @@ public class VTubeStudioBlendshapeDataReceiver : MonoBehaviour
             {
                 dataPacketsReceivedTotal++;
                 dataPacketsReceivedInLastSecond++;
-
-                if (printDebugBlendshapes)
-                {
-                    Debug.Log("a");
-                }
 
                 newestTrackingData = receivedTrackingData;
 
