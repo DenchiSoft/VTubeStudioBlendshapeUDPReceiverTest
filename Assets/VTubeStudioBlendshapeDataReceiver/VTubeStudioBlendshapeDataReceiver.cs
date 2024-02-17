@@ -220,10 +220,17 @@ public class VTubeStudioBlendshapeDataReceiver : MonoBehaviour
         }
 
         // Try to initialize socket.
-        udpSenderClient = new UdpClient();
-        listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-        listenSocket.Bind(new IPEndPoint(ip, requestToReceiveDataOnPort));
+        bool isV4 = vTubeStudioIPhoneIP.ToString().Contains(".");
+        udpSenderClient = new UdpClient(isV4 ? AddressFamily.InterNetwork : AddressFamily.InterNetworkV6);
+        
+
+        listenSocket = new Socket(AddressFamily.InterNetworkV6, SocketType.Dgram, ProtocolType.Udp);
+        listenSocket.SetSocketOption(SocketOptionLevel.IPv6, SocketOptionName.IPv6Only, false);
+        listenSocket.DualMode = true;
+
+        listenSocket.Bind(new IPEndPoint(IPAddress.IPv6Any, requestToReceiveDataOnPort));
         listenSocket.ReceiveTimeout = 15;
+
         listenBuffer = new byte[65535];
 
         // Reset PPS counter.
@@ -235,6 +242,8 @@ public class VTubeStudioBlendshapeDataReceiver : MonoBehaviour
         if (listenSocket.IsBound)
         {
             shutdownThread = false;
+
+            Log("Address is " + (isV4 ? "V4" : "V6") + ".");
 
             Log($"Starting VTube Studio UDP blendshape request thread. Will attempt to request data from VTube Studio " +
                 $"running on {vTubeStudioIPhoneIP}:{vTubeStudioListenPortUDP}");
@@ -325,7 +334,7 @@ public class VTubeStudioBlendshapeDataReceiver : MonoBehaviour
         {
             try
             {
-                EndPoint senderRemote = new IPEndPoint(IPAddress.Any, 0);
+                EndPoint senderRemote = new IPEndPoint(IPAddress.IPv6Any, 0);
 
                 try
                 {

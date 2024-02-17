@@ -15,13 +15,19 @@ public class VTubeStudioReceiveDataExample : MonoBehaviour
     public TextMeshProUGUI HotkeyText;
     public TextMeshProUGUI DataText;
 
+    // Used to visualize face rotation.
+    public GameObject FaceRotationCube;
+    public GameObject MouthCube;
+
     // VTS data receiver.
     public VTubeStudioBlendshapeDataReceiver receiver;
-    public VTubeStudioRawTrackingData currentTrackingData;
 
     // Current state of the receiver.
     private bool on;
     private int hotkey = -1;
+
+    // Current tracking data.
+    public VTubeStudioRawTrackingData currentTrackingData;
 
     void Start()
     {
@@ -46,14 +52,20 @@ public class VTubeStudioReceiveDataExample : MonoBehaviour
 
                 // A few blendshapes.
                 var blendshapes = currentTrackingData.BlendShapeDictionary;
-                text += "A few blendshapes:\n";
-                text += $"  {VTSARKitBlendshape.MouthSmileLeft}: <b>{blendshapes[VTSARKitBlendshape.MouthSmileLeft]}</b>\n";
-                text += $"  {VTSARKitBlendshape.EyeBlinkLeft}: <b>{blendshapes[VTSARKitBlendshape.EyeBlinkLeft]}</b>\n";
-                text += $"  {VTSARKitBlendshape.EyeLookInLeft}: <b>{blendshapes[VTSARKitBlendshape.EyeLookInLeft]}</b>\n";
-                text += $"  {VTSARKitBlendshape.TongueOut}: <b>{blendshapes[VTSARKitBlendshape.TongueOut]}</b>\n";
-                text += $"  {VTSARKitBlendshape.MouthRight}: <b>{blendshapes[VTSARKitBlendshape.MouthRight]}</b>\n";
-                text += $"  {VTSARKitBlendshape.EyeLookOutRight}: <b>{blendshapes[VTSARKitBlendshape.EyeLookOutRight]}</b>\n";
-                text += $"  {VTSARKitBlendshape.JawOpen}: <b>{blendshapes[VTSARKitBlendshape.JawOpen]}</b>\n";
+                text += "Some blendshapes:\n";
+                text += $"  {VTSARKitBlendshape.MouthSmileLeft}:\t\t<b>{blendshapes[VTSARKitBlendshape.MouthSmileLeft]:0.####}</b>\n";
+                text += $"  {VTSARKitBlendshape.EyeBlinkLeft}:\t\t<b>{blendshapes[VTSARKitBlendshape.EyeBlinkLeft]:0.####}</b>\n";
+                text += $"  {VTSARKitBlendshape.EyeBlinkRight}:\t\t<b>{blendshapes[VTSARKitBlendshape.EyeBlinkRight]:0.####}</b>\n";
+                text += $"  {VTSARKitBlendshape.TongueOut}:\t\t<b>{blendshapes[VTSARKitBlendshape.TongueOut]:0.####}</b>\n";
+                text += $"  {VTSARKitBlendshape.MouthRight}:\t\t<b>{blendshapes[VTSARKitBlendshape.MouthRight]:0.####}</b>\n";
+                text += $"  {VTSARKitBlendshape.EyeLookOutRight}:\t<b>{blendshapes[VTSARKitBlendshape.EyeLookOutRight]:0.####}</b>\n";
+                text += $"  {VTSARKitBlendshape.JawOpen}:\t\t\t<b>{blendshapes[VTSARKitBlendshape.JawOpen]:0.####}</b>\n";
+
+                var cubeTransform = FaceRotationCube.transform;
+                cubeTransform.localRotation = Quaternion.Euler(new Vector3(-currentTrackingData.Rotation.y, -currentTrackingData.Rotation.x, currentTrackingData.Rotation.z));
+                cubeTransform.localPosition = new Vector3(0.5f, 0.5f, -5f) +
+                    new Vector3(-currentTrackingData.Position.x, currentTrackingData.Position.y, currentTrackingData.Position.z) * 0.2f;
+                MouthCube.transform.localScale = new Vector3(0.5f, 0.05f + blendshapes[VTSARKitBlendshape.JawOpen] * 0.3f, 1f);
             }
             else
             {
@@ -96,9 +108,28 @@ public class VTubeStudioReceiveDataExample : MonoBehaviour
         }
         else
         {
-            if (receiver.StartReceivingData(AppName, IPAddress.Parse(IPhoneIP), PortToReceiveDataOn))
+            // Try to parse IP.
+            IPAddress parsedIPhoneIP;
+            try
             {
-                on = true;
+                parsedIPhoneIP = IPAddress.Parse(IPhoneIP); ;
+            }
+            catch
+            {
+                parsedIPhoneIP = null;
+            }
+            
+            // Start server.
+            if (parsedIPhoneIP != null)
+            {
+                if (receiver.StartReceivingData(AppName, parsedIPhoneIP, PortToReceiveDataOn))
+                {
+                    on = true;
+                }
+            }
+            else
+            {
+                Debug.LogError($"Invalid IP provided: {IPhoneIP}");
             }
         }
 

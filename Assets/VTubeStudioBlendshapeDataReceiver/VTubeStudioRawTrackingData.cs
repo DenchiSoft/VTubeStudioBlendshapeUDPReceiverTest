@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Represents the raw blendshape tracking data to be sent to VSeeFace via UDP.
 /// </summary>
+[Serializable]
 public class VTubeStudioRawTrackingData
 {
     [Serializable]
@@ -51,7 +52,19 @@ public class VTubeStudioRawTrackingData
     public List<VTSTrackingDataEntry> BlendShapes = new List<VTSTrackingDataEntry>();
 
     /// <summary>
-    /// Current iOS blendshapes in dictionary for easy access.
+    /// Left eye rotation.
     /// </summary>
+    public Vector3 EyeLeft;
+
+    /// <summary>
+    /// Right eye rotation.
+    /// </summary>
+    public Vector3 EyeRight;
+
+    /// <summary>
+    /// Current iOS blendshapes in dictionary for easy access.
+    /// Not sent over network, filled on receiver side.
+    /// </summary>
+    [NonSerialized]
     public Dictionary<VTSARKitBlendshape, float> BlendShapeDictionary = new Dictionary<VTSARKitBlendshape, float>();
 }
