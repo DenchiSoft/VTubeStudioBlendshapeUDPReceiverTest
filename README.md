@@ -27,7 +27,7 @@ When the iOS app receives this request, it will send UDP data packets to the IP 
 
 Data will be sent to the ports you listed in the request, so make sure you have a `UDP server` open on these ports. You have to list at least one port and can list up to 32. This is so you can have multiple apps running on one PC that all receive the data on difderent ports.
 
-The `sentBy` field should contain your app name and is only used for logging. It has to be between 1 and 64 characters long.
+The `sentBy` field should contain your app name and is currently only used for logging. It has to be between 1 and 64 characters long.
 
 ## What data is sent?
 
