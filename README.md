@@ -44,6 +44,8 @@ You will receive the following data every frame (typically at 60 FPS unless ther
 
 Details about the exact payload can be found here: [`Payload Definition`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioRawTrackingData.cs)
 
+Some fields may be **addedd** to this payload in the future so make sure your deserialization code for the payload doesn't fail when unknown fields are encountered.
+
 A detailed explanation of all blendshapes can be found here: [`Apple iOS Blendshape Info`]([https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioRawTrackingData.cs](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation))
 
 ## Example app
@@ -56,7 +58,7 @@ Make sure to replace `<YOUR-IPHONE-IP-HERE>` in the `VTubeStudioReceiveDataExamp
 | --- | --- |
 | [`VTSARKitBlendshape.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTSARKitBlendshape.cs) | Enum with [all 52 iOS blendshapes](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation). |
 | [`VTubeStudioUDPDataRequest.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioUDPDataRequest.cs) | Payload for the request you have to send to the iOS app. |
-| [`VTubeStudioRawTrackingData.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioRawTrackingData.cs) | Payload you will receive from the iOS app containing the tracking data. |
+| [`VTubeStudioRawTrackingData.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioRawTrackingData.cs) | Payload you will receive from the iOS app containing the tracking data and more. Some fields may be **addedd** to this payload in the future so make sure your deserialization code for the payload doesn't fail when unknown fields are encountered. |
 | [`VTubeStudioBlendshapeDataReceiver.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioBlendshapeDataReceiver.cs) | Component you can use in your app to request data and get notified when new data arrives from the iOS app or an on-screen hotkey is pressed. |
 | [`Example/VTubeStudioReceiveDataExample.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/Example/VTubeStudioReceiveDataExample.cs) | Example component that uses `VTubeStudioBlendshapeDataReceiver` to request data and then displays it. |
 
