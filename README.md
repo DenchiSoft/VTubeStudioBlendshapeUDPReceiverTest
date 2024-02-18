@@ -1,4 +1,4 @@
-# Receive tracking data from the VTS iPhone app
+# Receiving tracking data from the VTS iPhone app
 
 You can request to receive tracking data from the VTube Studio iPhone app. This data includes blendshapes, head rotation, head position and more. Data is requested and sent via UDP.
 
@@ -25,7 +25,9 @@ The `time` field tells the iOS app how long to send data. Allowed values are bet
 
 When the iOS app receives this request, it will send UDP data packets to the IP that sent the request. 
 
-Data will be sent to the ports you listed in the request. You have to list at least one port and can list up to 16. The `sentBy` field should contain your app name and is only used for logging. It has to be between 1 and 32 characters long.
+Data will be sent to the ports you listed in the request, so make sure you have a `UDP server` open on these ports. You have to list at least one port and can list up to 16. This is so you can have multiple apps running on one PC that all receive the data on difderent ports.
+
+The `sentBy` field should contain your app name and is only used for logging. It has to be between 1 and 32 characters long.
 
 ## What data is sent?
 
@@ -33,7 +35,7 @@ You will receive the following data every frame (typically at 60 FPS unless ther
 
 * Unix millisecond timestamp of tracking data
 * Face found? (boolean)
-* All 52 iOS blendshape values
+* All 52 raw iOS blendshape values
 * Head position
 * Head rotation
 * Eye left rotation
@@ -55,7 +57,7 @@ Make sure to replace `<YOUR-IPHONE-IP-HERE>` in the `VTubeStudioReceiveDataExamp
 | [`VTSARKitBlendshape.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTSARKitBlendshape.cs) | Enum with [all 52 iOS blendshapes](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation). |
 | [`VTubeStudioUDPDataRequest.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioUDPDataRequest.cs) | Payload for the request you have to send to the iOS app. |
 | [`VTubeStudioRawTrackingData.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioRawTrackingData.cs) | Payload you will receive from the iOS app containing the tracking data. |
-| [`VTubeStudioBlendshapeDataReceiver.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioBlendshapeDataReceiver.cs) | Component you can use in your app to request data and get notified when new data arrives from the iOS app. |
+| [`VTubeStudioBlendshapeDataReceiver.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioBlendshapeDataReceiver.cs) | Component you can use in your app to request data and get notified when new data arrives from the iOS app or an on-screen hotkey is pressed. |
 | [`Example/VTubeStudioReceiveDataExample.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/Example/VTubeStudioReceiveDataExample.cs) | Example component that uses `VTubeStudioBlendshapeDataReceiver` to request data and then displays it. |
 
 
