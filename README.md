@@ -42,22 +42,21 @@ You will receive the following data every frame (typically at 60 FPS unless ther
 
 Details about the exact payload can be found here: [`Payload Definition`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioRawTrackingData.cs)
 
-A detailed explanation of all blendshapes can be found here: https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation
-
+A detailed explanation of all blendshapes can be found here: [`Apple iOS Blendshape Info`]([https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioRawTrackingData.cs](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation))
 
 ## Example app
 
-list of files in project
+This repository contains an example Unity project showing how to request tracking data.
 
-where to put IP?
+Make sure to replace `<YOUR-IPHONE-IP-HERE>` in the `VTubeStudioReceiveDataExample` component with the IP of your iPhone/iPad. If it can't connect, check your firewall/antivirus settings.
 
 | File | Description |
 | --- | --- |
-| [`VTSARKitBlendshape.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTSARKitBlendshape.cs) | List all *new or modified* files |
-| [`VTubeStudioBlendshapeDataReceiver.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioBlendshapeDataReceiver.cs) | Show file differences that **haven't been** staged |
-| [`VTubeStudioRawTrackingData.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioRawTrackingData.cs) | Show file differences that **haven't been** staged |
-| [`VTubeStudioUDPDataRequest.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioUDPDataRequest.cs) | Show file differences that **haven't been** staged |
-| [`Example/VTubeStudioReceiveDataExample.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/Example/VTubeStudioReceiveDataExample.cs) | Show file differences that **haven't been** staged |
+| [`VTSARKitBlendshape.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTSARKitBlendshape.cs) | Enum with [all 52 iOS blendshapes](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation). |
+| [`VTubeStudioUDPDataRequest.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioUDPDataRequest.cs) | Payload for the request you have to send to the iOS app. |
+| [`VTubeStudioRawTrackingData.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioRawTrackingData.cs) | Payload you will receive from the iOS app containing the tracking data. |
+| [`VTubeStudioBlendshapeDataReceiver.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioBlendshapeDataReceiver.cs) | Component you can use in your app to request data and get notified when new data arrives from the iOS app. |
+| [`Example/VTubeStudioReceiveDataExample.cs`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/Example/VTubeStudioReceiveDataExample.cs) | Example component that uses `VTubeStudioBlendshapeDataReceiver` to request data and then displays it. |
 
 
 ![Screenshot](/images/unity_screenshot_1.png)
