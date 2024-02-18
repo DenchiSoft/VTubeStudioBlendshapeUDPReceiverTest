@@ -21,7 +21,7 @@ You can request to get sent tracking data for up to 10 seconds. To do that, send
   }
 ```
 
-The `time` field tells the iOS app how long to send data. Allowed values are between `0.5 and 10` seconds. Make sure to repeatedly send this request every few second to keep receiving data. When you're done, just stop sending the request.
+The `time` field tells the iOS app how long to send data. Allowed values are between `0.5 and 10` seconds. Make sure to repeatedly send this request every few second to keep receiving data. For example, you could send one request per second with `time` set to `5` so the tracking data keeps coming.  When you're done, just stop sending the request.
 
 When the iOS app receives this request, it will send UDP data packets to the IP that sent the request. 
 
