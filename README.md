@@ -46,7 +46,7 @@ You will receive the following data every frame (typically at 60 FPS unless ther
 
 Details about the exact payload can be found here: [`Payload Definition`](https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioRawTrackingData.cs)
 
-Some fields may be **addedd** to this payload in the future so make sure your deserialization code for the payload doesn't fail when unknown fields are encountered.
+Some fields may be **added** to this payload in the future so make sure your deserialization code for the payload doesn't fail when unknown fields are encountered.
 
 A detailed explanation of all blendshapes can be found here: [`Apple iOS Blendshape Info`]([https://github.com/DenchiSoft/VTubeStudioBlendshapeUDPReceiverTest/blob/main/Assets/VTubeStudioBlendshapeDataReceiver/VTubeStudioRawTrackingData.cs](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation))
 
