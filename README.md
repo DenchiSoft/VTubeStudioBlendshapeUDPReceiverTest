@@ -2,6 +2,8 @@
 
 You can request to receive tracking data from the VTube Studio iPhone app. This data includes blendshapes, head rotation, head position and more. Data is requested and sent via UDP.
 
+Apps like [VSeeFace](https://www.vseeface.icu/) and [VBridger](https://store.steampowered.com/app/1898830/VBridger/) use this.
+
 ## Prerequisites
 
 You need an iPhone or iPad running VTube Studio. Make sure the `"3rd Party PC Clients"` option is on. It's at the bottom of the first settings tab. This starts a **UDP listener** on the iPhone and the app is now ready to send you data over the local network when you request it.
